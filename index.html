@@ -182,6 +182,7 @@ const HarleyFlix = {
     IMAGE_BASE_URL: 'https://image.tmdb.org/t/p/original/',
     API_BASE_URL: 'https://api.themoviedb.org/3',
     ADSTERRA_URL: 'https://www.revenuecpmgate.com/nrmw6hswh7?key=cab87f7f10cb11cbed7a223557a84eee',
+    ADSTERRA_URL_2: 'https://www.revenuecpmgate.com/i5i2bt4dhr?key=a8460bd41796b470bcf623817f395254',
   },
   servers: [],
   requests: {},
@@ -345,6 +346,7 @@ const HarleyFlix = {
       this.els.bannerDescription.textContent = bannerMovie.overview;
       const showBannerModal = async () => {
         window.open(this.config.ADSTERRA_URL, '_blank');
+        window.open(this.config.ADSTERRA_URL_2, '_blank');
         const details = await this.fetchMediaDetails(bannerMovie.id, 'tv');
         if (details) this.openModal(details);
       };
@@ -417,6 +419,7 @@ const HarleyFlix = {
 
   async handlePosterClick(event) {
     window.open(this.config.ADSTERRA_URL, '_blank');
+    window.open(this.config.ADSTERRA_URL_2, '_blank');
     const { mediaId, mediaType } = event.target.dataset;
     if (!mediaId || !mediaType) return;
     const details = await this.fetchMediaDetails(mediaId, mediaType);
