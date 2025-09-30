@@ -16,7 +16,7 @@
     .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
     .banner-fade-bottom { height: 7.4rem; background-image: linear-gradient(180deg, transparent, rgba(37,37,37,.61), #141414);}
     .scroll-arrow {
-      position: absolute; top: 50%; transform: translateY(-50%);
+      position: absolute; top: 40%; transform: translateY(-50%);
       background-color: rgba(0, 0, 0, 0.5); color: white; border: none;
       padding: 0.5rem; cursor: pointer; z-index: 10; opacity: 0;
       transition: opacity 0.3s ease-in-out; border-radius: 9999px;
@@ -26,17 +26,32 @@
     .scroll-arrow.left { left: 0.5rem; }
     .scroll-arrow.right { right: 0.5rem; }
     .btn { margin: 0; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; }
-    .btn-server, .btn-season, .btn-episode { 
+    .btn-season, .btn-episode { 
       background-color: #333;
       color: #fff;
       transition: background-color 0.15s, transform 0.15s;
     }
-    .btn-server:hover, .btn-season:hover, .btn-episode:hover {
+    .btn-season:hover, .btn-episode:hover {
       background-color: #444;
       transform: scale(1.02);
     }
-    .btn-server.active, .btn-season.active, .btn-episode.active, .btn-server {
+    .btn-season.active, .btn-episode.active {
         background-color: #e50914;
+    }
+    .btn-server {
+      background-color: #27272a;
+      border: 1px solid #3f3f46;
+      color: #a1a1aa;
+      transition: background-color 0.15s, color 0.15s;
+    }
+    .btn-server:hover {
+      background-color: #3f3f46;
+      color: #e4e4e7;
+    }
+    .btn-server.active {
+      background-color: #e50914;
+      border-color: #e50914;
+      color: white;
     }
     #modal-overlay {
       position: fixed;
@@ -75,6 +90,70 @@
     }
     .button-container .btn {
         flex-shrink: 0;
+    }
+    .poster-container {
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      margin-right: 0.75rem;
+      width: 200px; /* Default width */
+      cursor: pointer;
+    }
+    .poster-container.large {
+      width: 160px;
+    }
+    .poster-wrapper {
+        position: relative;
+        transition: transform 0.3s;
+        border-radius: 0.25rem;
+        overflow: hidden;
+    }
+    .poster-container:hover .poster-wrapper {
+        transform: scale(1.05);
+    }
+    .poster-badge {
+        position: absolute;
+        padding: 2px 6px;
+        font-size: 0.75rem;
+        font-weight: bold;
+        border-radius: 4px;
+        color: white;
+    }
+    .hd-badge {
+        top: 8px;
+        left: 8px;
+        background-color: rgba(229, 9, 20, 0.9); /* red-600 */
+    }
+    .year-badge {
+        top: 8px;
+        right: 8px;
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+    .poster-title {
+        margin-top: 0.5rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #e5e7eb; /* gray-200 */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .detail-item {
+        display: flex;
+        align-items: flex-start;
+    }
+    .detail-item dt {
+        width: 80px;
+        flex-shrink: 0;
+        color: #a1a1aa; /* zinc-400 */
+    }
+    .detail-item dd {
+        color: #e4e4e7; /* zinc-200 */
+    }
+    @media (max-width: 640px) {
+        .poster-container { width: 150px; }
+        .poster-container.large { width: 120px; }
+        .poster-title { font-size: 0.75rem; }
     }
 
     /* Animations */
@@ -165,19 +244,24 @@
             <div id="no-video-message" class="text-lg">Select a server to play</div>
             <div id="videoErrorMsg" class="text-white bg-red-600 p-2 rounded hidden"></div>
         </div>
-        <div id="modal-details-container" class="p-4 md:p-6">
+        <div id="modal-details-container" class="p-4 md:p-6 text-sm">
             <button id="modal-close-btn" class="absolute top-4 right-4 text-white bg-black bg-opacity-50 rounded-full h-8 w-8 flex items-center justify-center z-20 hover:bg-opacity-75 transition">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
             </button>
             <div class="flex items-start mb-4">
-                <img id="modalPoster" class="w-24 h-36 object-cover rounded-lg mr-4 flex-shrink-0" src="" alt="">
-                <div>
-                    <h2 id="movieTitle" class="text-2xl font-extrabold text-white"></h2>
-                    <span id="modalRating" class="inline-block my-2 px-2 py-1 rounded bg-red-600 text-white font-bold text-sm"></span>
+                <img id="modalPoster" class="w-24 md:w-32 h-36 md:h-48 object-cover rounded-lg mr-4 flex-shrink-0" src="" alt="">
+                <div class="flex-grow">
+                    <h2 id="movieTitle" class="text-xl md:text-2xl font-extrabold text-white mb-2"></h2>
+                    <div class="flex items-center space-x-2 md:space-x-4 mb-2">
+                        <span id="modalRating" class="inline-block px-2 py-1 rounded bg-yellow-500 text-black font-bold text-xs"></span>
+                        <span id="modalDuration" class="text-zinc-300 text-xs"></span>
+                        <span class="border border-zinc-400 text-zinc-300 px-1.5 rounded text-xs">HD</span>
+                    </div>
+                    <p id="movieOverview" class="text-xs md:text-sm text-zinc-300 mb-4 line-clamp-3"></p>
                 </div>
             </div>
-            <p id="movieOverview" class="text-sm text-zinc-300 mb-4 line-clamp-3"></p>
-            <div id="watch-options-container" class="space-y-4"></div>
+            <dl id="modal-details-list" class="space-y-2 text-xs md:text-sm"></dl>
+            <div id="watch-options-container" class="space-y-4 mt-4"></div>
         </div>
     </div>
   </div>
