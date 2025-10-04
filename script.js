@@ -123,7 +123,6 @@ const HarleyFlix = {
     const debouncedSearch = this.debounce(() => this.handleSearch(), 300);
     this.els.searchInput.addEventListener('input', debouncedSearch);
 
-    // Listen for the 'x' button on search input
     this.els.searchInput.addEventListener('search', () => {
         if (!this.els.searchInput.value) {
             this.clearSearch();
@@ -144,6 +143,8 @@ const HarleyFlix = {
     this.els.searchResultsDropdown.style.display = 'none';
     this.els.searchOverlay.classList.remove('active');
     this.els.body.classList.remove('search-active');
+    this.els.movieRowsContainer.style.display = 'block';
+    this.els.banner.style.display = 'flex';
   },
 
   isMobile() {
