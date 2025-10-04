@@ -306,15 +306,15 @@
     /* Mobile Search Overlay */
     #search-overlay {
       position: fixed;
-      top: 56px; /* Below the navbar */
+      top: 0;
       left: 0;
       width: 100vw;
-      height: calc(100vh - 56px);
+      height: 100vh;
       background: rgba(20, 20, 20, 0.98);
       z-index: 99;
       overflow-y: auto;
       animation: searchFadeIn 0.3s cubic-bezier(.4,0,.2,1);
-      padding: 16px;
+      padding: 1rem;
       display: none; /* Hidden by default */
     }
     @keyframes searchFadeIn {
@@ -324,11 +324,20 @@
     #search-overlay.active {
       display: block !important;
     }
+    #search-overlay #search-container {
+      display: none;
+    }
+    #search-overlay.active #search-container {
+      display: flex;
+    }
+    #search-overlay-results {
+      padding-top: 1rem;
+    }
     body.search-active {
       overflow: hidden;
     }
     @media (max-width: 768px) {
-      body.search-active #banner, body.search-active #movie-rows {
+      body.search-active #banner, body.search-active #movie-rows, body.search-active footer, body.search-active #navbar {
         display: none;
       }
     }
@@ -336,22 +345,19 @@
 </head>
 <body class="text-white">
   <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 p-4 transition-colors duration-500">
-    <div class="container mx-auto flex justify-between items-center flex-wrap gap-y-2">
+    <div class="container mx-auto flex justify-between items-center">
       <a href="#" class="text-2xl md:text-3xl font-extrabold text-red-600 no-underline hover:opacity-80 transition">
         HarleyFlix
       </a>
-      <div id="search-container" class="relative flex flex-col sm:flex-row flex-grow md:flex-grow-0 items-center justify-end gap-2 order-3 md:order-2 w-full md:w-auto">
-        <select id="search-filter" class="p-2 rounded-md border-none bg-[#2a2a2a] text-white w-full sm:w-auto">
-          <option value="multi">All</option>
-          <option value="movie">Movies</option>
-          <option value="tv">TV Shows</option>
-        </select>
-        <div class="relative flex-grow">
-          <input type="search" id="search-input" placeholder="Search..." class="p-2 rounded-md border-none w-full">
-        </div>
-        <div id="search-results-dropdown"></div>
+      <div id="nav-search-trigger" class="md:hidden">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
       </div>
-      <img class="h-8 w-8 rounded order-2 md:order-3" src="https://placehold.co/32x32/E50914/FFFFFF?text=H" alt="Profile Avatar">
+      <div id="nav-search-container" class="hidden md:flex flex-grow md:flex-grow-0 items-center justify-end">
+        <!-- Search container content will be injected here by JS on desktop -->
+      </div>
+      <img class="h-8 w-8 rounded" src="https://placehold.co/32x32/E50914/FFFFFF?text=H" alt="Profile Avatar">
     </div>
   </nav>
   <header id="banner" class="relative text-white object-cover bg-cover bg-center flex flex-col justify-center" style="height: 56.25vw; max-height: 800px; min-height: 400px;">
@@ -372,7 +378,26 @@
   </header>
 
   <main id="movie-rows" class="px-2 md:px-10 pb-16"></main>
-  <div id="search-overlay"></div>
+  
+  <div id="search-overlay">
+    <div id="search-container" class="relative flex items-center gap-2">
+      <select id="search-filter" class="p-2 rounded-md border-none bg-[#2a2a2a] text-white">
+        <option value="multi">All</option>
+        <option value="movie">Movies</option>
+        <option value="tv">TV Shows</option>
+      </select>
+      <div class="relative flex-grow">
+        <input type="search" id="search-input" placeholder="Search..." class="p-2 rounded-md border-none w-full">
+      </div>
+      <button id="search-close-btn" class="text-white flex-shrink-0">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+      </button>
+      <div id="search-results-dropdown"></div>
+    </div>
+    <div id="search-overlay-results">
+      <!-- Mobile search results will be injected here -->
+    </div>
+  </div>
   
   <div id="modal-overlay">
     <div id="modal-container">
@@ -443,7 +468,7 @@
                 <a href="https://t.me/+Hd9481osUr04M2M1" target="_blank" rel="noopener noreferrer" title="Telegram Channel">
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.287 5.906c-.778.324-2.334.994-4.666 2.01-.378.15-.577.298-.595.442-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294.26.006.549-.1.868-.32 2.179-1.471 3.304-2.214 3.374-2.23.05-.012.12-.026.166.016.047.041.042.12.037.141-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8.154 8.154 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629.093.06.183.125.27.187.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.426 1.426 0 0 0-.013-.315.337.337 0 0 0-.114-.217.526.526 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09z"/></svg>
                 </a>
-                <a href="https://github.com/" target="_blank" rel="noopener noreferrer" title="GitHub">
+                <a href="https://github.com/Warren" target="_blank" rel="noopener noreferrer" title="GitHub">
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
                 </a>
             </div>
@@ -482,5 +507,4 @@
   });
 </script>
 </body>
-
 </html>
