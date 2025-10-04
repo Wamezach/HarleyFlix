@@ -16,6 +16,7 @@ const HarleyFlix = {
     this.setupRequests();
     this.cacheDOMElements();
     this.addEventListeners();
+    this.handleDevOverlay();
     this.loadInitialContent();
   },
 
@@ -111,11 +112,21 @@ const HarleyFlix = {
       shareContainer: document.getElementById('share-container'),
       searchResultsDropdown: document.getElementById('search-results-dropdown'),
       searchOverlay: document.getElementById('search-overlay'),
+      modalTrendingSection: document.getElementById('modal-trending-section'),
+      devOverlay: document.getElementById('dev-overlay'),
+      devCloseBtn: document.getElementById('dev-close-btn'),
+      dontShowAgainCheckbox: document.getElementById('dont-show-again-checkbox'),
     };
   },
 
   addEventListeners() {
     this.els.modalCloseBtn.addEventListener("click", () => this.closeModal());
+    this.els.devCloseBtn.addEventListener('click', () => {
+        if (this.els.dontShowAgainCheckbox.checked) {
+            localStorage.setItem('hideDevOverlay', 'true');
+        }
+        this.els.devOverlay.style.display = 'none';
+    });
     window.addEventListener('scroll', () => {
       this.els.navbar.style.backgroundColor = window.scrollY > 100 ? '#141414' : 'transparent';
     });
@@ -138,13 +149,17 @@ const HarleyFlix = {
     });
   },
 
+  handleDevOverlay() {
+    if (localStorage.getItem('hideDevOverlay') !== 'true') {
+        this.els.devOverlay.style.display = 'flex';
+    }
+  },
+
   clearSearch() {
     this.els.searchInput.value = '';
     this.els.searchResultsDropdown.style.display = 'none';
     this.els.searchOverlay.classList.remove('active');
     this.els.body.classList.remove('search-active');
-    this.els.movieRowsContainer.style.display = 'block';
-    this.els.banner.style.display = 'flex';
   },
 
   isMobile() {
@@ -387,7 +402,7 @@ const HarleyFlix = {
     if (details) this.openModal(details);
   },
   
-  openModal(details) {
+  async openModal(details) {
     this.currentMedia.details = details;
     this.resetModalState();
   
@@ -410,7 +425,60 @@ const HarleyFlix = {
     else this.renderMovieOptions(details);
   
     this.renderShareButtons(details);
+    await this.renderModalTrending();
     this.els.modalOverlay.style.display = "flex";
+  },
+  
+  async renderModalTrending() {
+    const section = this.els.modalTrendingSection;
+    if (!section) return;
+    section.innerHTML = '';
+    
+    const movies = await this.fetchData(this.requests.fetchTrending);
+    if (!movies || movies.length === 0) return;
+
+    const title = document.createElement('h3');
+    title.className = 'text-lg font-bold mb-2';
+    title.textContent = 'Trending Now';
+    section.appendChild(title);
+
+    const rowContainer = document.createElement('div');
+    rowContainer.className = 'relative row-container';
+    
+    const postersContainer = document.createElement('div');
+    postersContainer.className = 'flex overflow-y-hidden overflow-x-scroll p-2 -ml-2 scrollbar-hide';
+    rowContainer.appendChild(postersContainer);
+
+    movies.forEach(movie => {
+        if (!movie.poster_path) return;
+        const posterContainer = document.createElement('div');
+        posterContainer.className = 'poster-container small';
+        
+        const mediaType = movie.media_type || (movie.first_air_date ? 'tv' : 'movie');
+        posterContainer.dataset.mediaId = movie.id;
+        posterContainer.dataset.mediaType = mediaType;
+
+        posterContainer.addEventListener('click', async (e) => {
+            this.closeModal();
+            setTimeout(() => this.handlePosterClick(e), 300);
+        });
+
+        const posterWrapper = document.createElement('div');
+        posterWrapper.className = 'poster-wrapper';
+        
+        const poster = document.createElement('img');
+        poster.src = `${this.config.IMAGE_BASE_URL}${movie.poster_path}`;
+        poster.alt = movie.name || movie.title;
+        poster.loading = 'lazy';
+        poster.className = 'object-cover w-full h-full';
+
+        posterWrapper.appendChild(poster);
+        posterContainer.appendChild(posterWrapper);
+        postersContainer.appendChild(posterContainer);
+    });
+
+    this.addScrollArrows(rowContainer, postersContainer);
+    section.appendChild(rowContainer);
   },
 
   renderDetailsList(details) {
@@ -449,6 +517,7 @@ const HarleyFlix = {
     this.els.watchOptionsContainer.innerHTML = "";
     this.els.modalDetailsList.innerHTML = "";
     this.els.shareContainer.innerHTML = "";
+    this.els.modalTrendingSection.innerHTML = "";
   },
 
   renderMovieOptions(details) {
