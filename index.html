@@ -4,29 +4,68 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HarleyFlix</title>
-  
-  <!-- SEO and Social Sharing Meta Tags -->
-  <meta name="description" content="HarleyFlix - Your ultimate Netflix alternative for streaming thousands of movies and TV shows for free. Discover new releases, top-rated classics, and binge-worthy series all in one place.">
-  
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://harleyflix-1.pages.dev/">
-  <meta property="og:title" content="HarleyFlix - Free Movie & TV Show Streaming">
-  <meta property="og:description" content="Your ultimate Netflix alternative for streaming thousands of movies and TV shows for free.">
-  <meta property="og:image" content="https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/movie-night-graphic.png">
-
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://harleyflix-1.pages.dev/">
-  <meta property="twitter:title" content="HarleyFlix - Free Movie & TV Show Streaming">
-  <meta property="twitter:description" content="Your ultimate Netflix alternative for streaming thousands of movies and TV shows for free.">
-  <meta property="twitter:image" content="https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/movie-night-graphic.png">
-  
+  <meta name="description" content="HarleyFlix - Your ultimate destination for streaming thousands of movies and TV shows for free. Discover new releases, top-rated classics, and binge-worthy series all in one place.">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script type='text/javascript' src='//pl27706575.revenuecpmgate.com/43/08/fd/4308fd0c92978073c8ed9c0d58c16d99.js'></script>
+  <script>
+    // --- Developer Tools Detection and Redirect ---
+    (function() {
+      const devtools = {
+        isOpen: false,
+        threshold: 160
+      };
+
+      const check = () => {
+        const widthThreshold = window.outerWidth - window.innerWidth > devtools.threshold;
+        const heightThreshold = window.outerHeight - window.innerHeight > devtools.threshold;
+        
+        if (widthThreshold || heightThreshold) {
+          if (!devtools.isOpen) {
+            devtools.isOpen = true;
+            window.location.href = '_index.html'; // Redirect if dev tools are open
+          }
+        } else {
+          devtools.isOpen = false;
+        }
+      };
+
+      // Check periodically
+      setInterval(check, 1000);
+      
+      // Initial check
+      check();
+    })();
+
+    // Disable right-click context menu
+    document.addEventListener('contextmenu', event => event.preventDefault());
+
+    // Disable F12 key and other developer tools shortcuts
+    document.addEventListener('keydown', event => {
+      // F12
+      if (event.keyCode === 123) {
+        event.preventDefault();
+      }
+      // Ctrl+Shift+I (Chrome, Edge, Firefox) or Cmd+Opt+I (Safari)
+      if ((event.ctrlKey || event.metaKey) && event.shiftKey && event.keyCode === 73) {
+        event.preventDefault();
+      }
+      // Ctrl+Shift+J (Chrome, Edge, Firefox) or Cmd+Opt+J (Safari)
+      if ((event.ctrlKey || event.metaKey) && event.shiftKey && event.keyCode === 74) {
+        event.preventDefault();
+      }
+      // Ctrl+Shift+C (Chrome, Edge, Firefox)
+      if ((event.ctrlKey || event.metaKey) && event.shiftKey && event.keyCode === 67) {
+        event.preventDefault();
+      }
+      // Ctrl+U (View source) or Cmd+U
+      if ((event.ctrlKey || event.metaKey) && event.keyCode === 85) {
+        event.preventDefault();
+      }
+    });
+  </script>
   <style>
     body { background-color: #141414; font-family: 'Inter', sans-serif; }
     .scrollbar-hide::-webkit-scrollbar { display: none; }
