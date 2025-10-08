@@ -11,8 +11,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script type='text/javascript' src='//pl27706575.revenuecpmgate.com/43/08/fd/4308fd0c92978073c8ed9c0d58c16d99.js'></script>
   <style>
-    /* (styles as above - omitted for brevity, unchanged from your previous code) */
-    /* ... [keep all your styles from before, including .watched-list-grid, etc.] ... */
     body { background-color: #141414; font-family: 'Inter', sans-serif; }
     .scrollbar-hide::-webkit-scrollbar { display: none; }
     .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
@@ -292,6 +290,32 @@
       transition: background 0.2s;
     }
     #watched-clear-btn:hover { background: #a90310; }
+    .btn-episode.watched-episode {
+      background-color: #facc15 !important; /* Tailwind yellow-400 */
+      color: #18181b !important;
+    }
+    /* New for AZ filter bar styling: */
+    #watched-az-filter .az-filter-btn.active {
+      background-color: #e50914 !important;
+      color: #fff !important;
+    }
+    #watched-az-filter .az-filter-btn {
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.15s, color 0.15s;
+    }
+    #watched-az-filter {
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+    }
   </style>
 </head>
 <body class="text-white">
