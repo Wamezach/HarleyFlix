@@ -158,72 +158,53 @@
     }
     .share-btn:hover { transform: scale(1.1); background-color: #52525b; }
     #share-container { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #3f3f46; }
-    #search-results-dropdown {
-      position: absolute;
-      top: 100%; left: 0; right: 0;
-      max-height: 400px; overflow-y: auto;
-      background-color: #181818;
-      border: 1px solid #333; border-top: none;
-      border-radius: 0 0 4px 4px;
-      z-index: 100; display: none;
-    }
-    .search-result-item { display: flex; align-items: center; padding: 8px; cursor: pointer; transition: background-color 0.2s; }
-    .search-result-item:hover { background-color: #333; }
-    .search-result-item img { width: 40px; height: 60px; object-fit: cover; margin-right: 12px; border-radius: 2px; }
-    .footer-socials {
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      margin-top: 1rem;
-    }
-    .footer-socials a { color: #a1a1aa; transition: color 0.2s, transform 0.2s; }
-    .footer-socials a:hover { color: #e50914; transform: scale(1.1); }
-    #dev-modal {
-      background: #181818;
-      padding: 1.5rem;
+    #server-warning {
+      background: #facc15;
+      color: #7c4700;
+      font-weight: 500;
       border-radius: 8px;
-      border: 1px solid #3f3f46;
-      width: 90%;
-      max-width: 550px;
+      padding: 1rem 1.5rem;
+      margin: 1.5rem 0 1.5rem 0;
+      font-size: 1.05rem;
       text-align: center;
-      position: relative;
+      box-shadow: 0 1px 8px rgba(0,0,0,0.04);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
-    .tech-stack { display: flex; justify-content: center; align-items: center; gap: 1rem; flex-wrap: wrap; }
-    .tech-item { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: #a1a1aa; font-size: 0.75rem; }
-    .tech-item svg { width: 32px; height: 32px; }
-    @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px);} to { opacity: 1; transform: translateY(0);} }
-    .animate-fade-in-up { animation: fadeInUp 0.5s ease-out forwards; }
-    .row-item { opacity: 0; animation: fadeInUp 0.6s ease-out forwards; }
-    @media (min-width: 769px) {
-      #modal-container { flex-direction: row; }
-      #modal-video-container { width: 70%; height: 100%; }
-      #modal-details-container { width: 30%; height: 100%; overflow-y: auto; }
+    #server-warning a {
+      color: #e50914;
+      text-decoration: underline;
+      font-weight: 600;
+      word-break: break-all;
+    }
+    #footer-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      gap: 8px;
+    }
+    #footer-logo img {
+      height: 38px;
+      width: auto;
+      margin-right: 8px;
     }
     @media (max-width: 768px) {
-      #modal-container { flex-direction: column; }
-      #modal-video-container { width: 100%; aspect-ratio: 16/9; flex-shrink: 0; }
-      #modal-details-container { width: 100%; flex-grow: 1; overflow-y: auto; }
-      #search-results-dropdown { display: none !important;}
-      .scroll-arrow { opacity: 0.7; }
+      #server-warning {
+        font-size: 0.97rem;
+        padding: 0.75rem 0.5rem;
+        flex-direction: column;
+        gap: 4px;
+      }
+      #footer-logo img {
+        height: 28px;
+        margin-right: 4px;
+      }
     }
-    #search-overlay {
-      position: fixed; top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background: rgba(20, 20, 20, 0.98);
-      z-index: 99; overflow-y: auto;
-      animation: searchFadeIn 0.3s cubic-bezier(.4,0,.2,1);
-      padding: 1rem; display: none;
-    }
-    @keyframes searchFadeIn { 0% { opacity: 0; transform: translateY(20px);} 100% { opacity: 1; transform: translateY(0);} }
-    #search-overlay.active { display: block !important; }
-    #search-overlay #search-container { display: none; }
-    #search-overlay.active #search-container { display: flex; }
-    #search-overlay-results { padding-top: 1rem; }
-    body.search-active { overflow: hidden; }
-    @media (max-width: 768px) {
-      body.search-active #banner, body.search-active #movie-rows, body.search-active footer, body.search-active #navbar { display: none; }
-    }
-    /* Watched modal */
+    /* Watchlist Modal Styles */
     #watched-modal {
       position: fixed; inset: 0;
       background: rgba(0,0,0,0.96);
@@ -295,27 +276,8 @@
       background-color: #facc15 !important; /* Tailwind yellow-400 */
       color: #18181b !important;
     }
-    /* New for AZ filter bar styling: */
-    #watched-az-filter .az-filter-btn.active {
-      background-color: #e50914 !important;
-      color: #fff !important;
-    }
-    #watched-az-filter .az-filter-btn {
-      background-color: #333;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: background 0.15s, color 0.15s;
-    }
-    #watched-az-filter {
-      margin-top: 1.5rem;
-      margin-bottom: 0.5rem;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.5rem;
+    #watched-empty-msg {
+      display: none;
     }
   </style>
 </head>
@@ -351,7 +313,16 @@
     </div>
     <div class="absolute bottom-0 left-0 right-0 banner-fade-bottom"></div>
   </header>
+
+  <div id="server-warning">
+    <span>
+      <i class="fa-solid fa-circle-exclamation"></i>
+      If a server is blurry or not working, please change the server below. Join our <a href="https://web.telegram.org/a/#-1002366437890" target="_blank" rel="noopener">Telegram group</a> for updates!
+    </span>
+  </div>
+
   <main id="movie-rows" class="px-2 md:px-10 pb-16"></main>
+
   <div id="search-overlay">
     <div id="search-container" class="relative flex items-center gap-2">
       <select id="search-filter" class="p-2 rounded-md border-none bg-[#2a2a2a] text-white">
@@ -425,6 +396,10 @@
     </div>
   </div>
   <footer class="text-center py-8 text-zinc-500 text-sm">
+    <div id="footer-logo">
+      <img src="https://placehold.co/38x38/E50914/FFFFFF?text=H" alt="HarleyFlix Logo" />
+      <span class="text-xl font-extrabold text-red-600">HarleyFlix</span>
+    </div>
     <div class="container mx-auto px-4">
       <p class="mb-2">© <span id="footer-year">2025</span> HarleyFlix. All Rights Reserved.</p>
       <p>This site does not store any files on its server. All contents are provided by non-affiliated third parties.</p>
@@ -438,7 +413,7 @@
       <h2 class="text-xl font-bold mb-3">Watched List</h2>
       <button id="watched-clear-btn">Clear List</button>
       <div id="watched-list-container" class="watched-list-grid"></div>
-      <div id="watched-empty-msg" class="text-center text-zinc-400 mt-6" style="display:none;">You haven't watched anything yet.</div>
+      <div id="watched-empty-msg" class="text-center text-zinc-400 mt-6">You haven't watched anything yet.</div>
     </div>
   </div>
 
@@ -450,5 +425,3 @@
 <script src="src/index.js" defer></script>
 </body>
 </html>
-
-
