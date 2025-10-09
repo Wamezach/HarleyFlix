@@ -330,11 +330,13 @@
       font-size: 1rem;
       gap: 0.75rem;
       box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      word-break: break-word;
+      flex-wrap: wrap;
     }
     .yellow-note a { color: #b91c1c; text-decoration: underline; font-weight: bold;}
     .yellow-note i { color: #d97706; font-size: 1.3em;}
     @media (max-width: 768px) {
-      .yellow-note { font-size: 0.96rem; padding: 0.8rem 1rem;}
+      .yellow-note { font-size: 0.96rem; padding: 0.8rem 1rem; flex-direction: column; align-items: flex-start; }
     }
     /* --- END yellow note styling --- */
   </style>
@@ -371,7 +373,15 @@
     </div>
     <div class="absolute bottom-0 left-0 right-0 banner-fade-bottom"></div>
   </header>
-  <main id="movie-rows" class="px-2 md:px-10 pb-16"></main>
+  <main id="movie-rows" class="px-2 md:px-10 pb-16">
+    <!-- Yellow note above Trending Now -->
+    <div id="yellow-note-trending" class="yellow-note" style="max-width:900px;margin:32px auto 0 auto;">
+      <i class="fas fa-exclamation-circle"></i>
+      If a server is blurry or not working, please change the server below. Join our
+      <a href="https://t.me/harleyflix" target="_blank">Telegram group</a> for updates!
+    </div>
+    <!-- Trending Now and movie rows will be dynamically injected here -->
+  </main>
   <div id="search-overlay">
     <div id="search-container" class="relative flex items-center gap-2">
       <select id="search-filter" class="p-2 rounded-md border-none bg-[#2a2a2a] text-white">
@@ -415,13 +425,13 @@
                 </div>
             </div>
             <dl id="modal-details-list" class="space-y-2 text-xs md:text-sm"></dl>
-            <div id="watch-options-container" class="space-y-4 mt-4"></div>
-            <!-- Yellow note after player in modal -->
-            <div class="yellow-note" style="margin-top:1.5rem;">
+            <!-- Yellow note above the season buttons -->
+            <div class="yellow-note" style="margin-top:1.5rem;margin-bottom:1.5rem;">
               <i class="fas fa-exclamation-circle"></i>
               If a server is blurry or not working, please change the server below. Join our 
               <a href="https://t.me/harleyflix" target="_blank">Telegram group</a> for updates!
             </div>
+            <div id="watch-options-container" class="space-y-4 mt-4"></div>
             <div id="share-container"></div>
             <div id="modal-trending-section" class="mt-6 pt-6 border-t border-zinc-700"></div>
         </div>
@@ -471,20 +481,11 @@
       <div id="watched-empty-msg" class="text-center text-zinc-400 mt-6" style="display:none;">You haven't watched anything yet.</div>
     </div>
   </div>
-
-<!-- Yellow note above Trending Now -->
-<div id="yellow-note-trending" class="yellow-note" style="max-width:900px;margin:32px auto 0 auto;">
-  <i class="fas fa-exclamation-circle"></i>
-  If a server is blurry or not working, please change the server below. Join our
-  <a href="https://t.me/harleyflix" target="_blank">Telegram group</a> for updates!
-</div>
-
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('footer-year').textContent = new Date().getFullYear();
 
     // Move yellow note above trending now dynamically (if needed)
-    // Find Trending Now header
     var trendingHeader = Array.from(document.querySelectorAll('main h2, main h3, main h1'))
       .find(el => /Trending Now/i.test(el.textContent));
     var yellowNoteTrending = document.getElementById('yellow-note-trending');
