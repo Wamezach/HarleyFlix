@@ -6,11 +6,10 @@
   <title>HarleyFlix</title>
   <meta name="description" content="HarleyFlix - Your ultimate destination for streaming thousands of movies and TV shows for free. Discover new releases, top-rated classics, and binge-worthy series all in one place.">
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <script type='text/javascript' src='//pl27706575.revenuecpmgate.com/43/08/fd/4308fd0c92978073c8ed9c0d58c16d99.js'></script>
   <style>
     body { background-color: #141414; font-family: 'Inter', sans-serif; }
     .scrollbar-hide::-webkit-scrollbar { display: none; }
@@ -230,7 +229,6 @@
     @media (max-width: 768px) {
       body.search-active #banner, body.search-active #movie-rows, body.search-active footer, body.search-active #navbar { display: none; }
     }
-    /* Watched modal */
     #watched-modal {
       position: fixed; inset: 0;
       background: rgba(0,0,0,0.96);
@@ -302,7 +300,6 @@
       background-color: #facc15 !important;
       color: #18181b !important;
     }
-    /* New for AZ filter bar styling: */
     #watched-az-filter .az-filter-btn.active {
       background-color: #e50914 !important;
       color: #fff !important;
@@ -344,6 +341,21 @@
     @media (max-width: 768px) {
       .yellow-note { font-size: 0.96rem; padding: 0.8rem 1rem; flex-direction: column; align-items: flex-start; }
     }
+    /* Toast */
+    #player-toast {
+      display:none;
+      position:fixed;
+      top:20px;
+      left:50%;
+      transform:translateX(-50%);
+      background:#e50914;
+      color:#fff;
+      padding:10px 18px;
+      border-radius:8px;
+      z-index:1000;
+      font-size:1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
   </style>
 </head>
 <body class="text-white">
@@ -378,12 +390,6 @@
     </div>
     <div class="absolute bottom-0 left-0 right-0 banner-fade-bottom"></div>
   </header>
-    <!-- Yellow note always visible above Trending Now -->
-    <div class="yellow-note" style="max-width:900px;margin:32px auto 0 auto;">
-      <i class="fas fa-exclamation-circle"></i>
-      If a server is blurry or not working, please change the server below. Join our
-      <a href="https://t.me/harleyflix" target="_blank">Telegram group</a> for updates!
-    </div>
   <main id="movie-rows" class="px-2 md:px-10 pb-16">
     <h2 class="text-2xl font-bold mt-8 mb-4">Trending Now</h2>
   </main>
@@ -407,20 +413,22 @@
   <div id="modal-overlay">
     <div id="modal-container">
         <div id="modal-video-container" class="relative bg-black flex items-center justify-center">
-            <div id="player-controls" style="position:absolute;top:1rem;right:1rem;z-index:50;display:flex;gap:0.5rem;">
-              <button id="player-max-btn" title="Maximize" class="bg-gray-800 bg-opacity-60 rounded-full p-2 text-white hover:bg-gray-900 transition">
-                <i class="fas fa-expand"></i>
-              </button>
-              <button id="player-mute-btn" title="Mute" class="bg-gray-800 bg-opacity-60 rounded-full p-2 text-white hover:bg-gray-900 transition">
-                <i class="fas fa-volume-up"></i>
-              </button>
-            </div>
             <div id="loadingOverlay" class="loading-overlay hidden">Loading video...</div>
             <iframe id="movieIframe" class="w-full h-full hidden" frameborder="0" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>
             <div id="no-video-message" class="text-lg">Select a server to play</div>
             <div id="videoErrorMsg" class="text-white bg-red-600 p-2 rounded hidden"></div>
         </div>
         <div id="modal-details-container" class="p-4 md:p-6 text-sm modal-scroll-container">
+            <!-- Controls above yellow note -->
+            <div id="player-controls" style="display: flex; gap: 0.5rem; margin-bottom: 1rem; justify-content: flex-end;">
+              <button id="player-max-btn" title="Maximize" class="bg-gray-800 bg-opacity-80 rounded-full p-2 text-white hover:bg-gray-900 transition">
+                <i class="fas fa-expand"></i>
+              </button>
+              <button id="player-mute-btn" title="Mute" class="bg-gray-800 bg-opacity-80 rounded-full p-2 text-white hover:bg-gray-900 transition">
+                <i class="fas fa-volume-up"></i>
+              </button>
+            </div>
+            <div id="player-toast">Mute not supported for this player.</div>
             <button id="modal-close-btn" class="absolute top-4 right-4 text-white bg-black bg-opacity-50 rounded-full h-8 w-8 flex items-center justify-center z-20 hover:bg-opacity-75 transition">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
             </button>
@@ -438,7 +446,7 @@
                 </div>
             </div>
             <dl id="modal-details-list" class="space-y-2 text-xs md:text-sm"></dl>
-            <div class="yellow-note" style="margin-top:1.5rem;margin-bottom:1.5rem;">
+            <div class="yellow-note" style="margin-top:0;margin-bottom:1.5rem;">
               <i class="fas fa-exclamation-circle"></i>
               If a server is blurry or not working, please change the server below. Join our 
               <a href="https://t.me/harleyflix" target="_blank">Telegram group</a> for updates!
