@@ -374,13 +374,14 @@
     <div class="absolute bottom-0 left-0 right-0 banner-fade-bottom"></div>
   </header>
   <main id="movie-rows" class="px-2 md:px-10 pb-16">
-    <!-- Yellow note above Trending Now -->
-    <div id="yellow-note-trending" class="yellow-note" style="max-width:900px;margin:32px auto 0 auto;">
+    <!-- Yellow note always visible above Trending Now -->
+    <div class="yellow-note" style="max-width:900px;margin:32px auto 0 auto;">
       <i class="fas fa-exclamation-circle"></i>
       If a server is blurry or not working, please change the server below. Join our
       <a href="https://t.me/harleyflix" target="_blank">Telegram group</a> for updates!
     </div>
-    <!-- Trending Now and movie rows will be dynamically injected here -->
+    <h2 class="text-2xl font-bold mt-8 mb-4">Trending Now</h2>
+    <!-- Movie cards/content go here -->
   </main>
   <div id="search-overlay">
     <div id="search-container" class="relative flex items-center gap-2">
@@ -425,7 +426,7 @@
                 </div>
             </div>
             <dl id="modal-details-list" class="space-y-2 text-xs md:text-sm"></dl>
-            <!-- Yellow note above the season buttons -->
+            <!-- Yellow note above the season/server options -->
             <div class="yellow-note" style="margin-top:1.5rem;margin-bottom:1.5rem;">
               <i class="fas fa-exclamation-circle"></i>
               If a server is blurry or not working, please change the server below. Join our 
@@ -484,14 +485,6 @@
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('footer-year').textContent = new Date().getFullYear();
-
-    // Move yellow note above trending now dynamically (if needed)
-    var trendingHeader = Array.from(document.querySelectorAll('main h2, main h3, main h1'))
-      .find(el => /Trending Now/i.test(el.textContent));
-    var yellowNoteTrending = document.getElementById('yellow-note-trending');
-    if (trendingHeader && yellowNoteTrending) {
-      trendingHeader.parentNode.insertBefore(yellowNoteTrending, trendingHeader);
-    }
   });
 </script>
 <script src="src/index.js" defer></script>
