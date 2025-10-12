@@ -269,10 +269,7 @@
           <i class="fab fa-js-square" title="JavaScript"></i>
         </div>
       </div>
-      <div class="flex items-center justify-center">
-        <input type="checkbox" id="dont-show-again-checkbox" class="h-4 w-4 rounded bg-zinc-700 border-zinc-600 text-red-600 focus:ring-red-500">
-        <label for="dont-show-again-checkbox" class="ml-2 text-sm text-zinc-400">Don't show this again</label>
-      </div>
+      <!-- Removed checkbox for "Don't show this again" -->
     </div>
   </div>
 
@@ -284,6 +281,8 @@
       <div class="mt-4">
         <img src="https://placehold.co/80x40/E50914/FFFFFF?text=HarleyFlix" alt="HarleyFlix Logo" style="height:40px; border-radius:8px;"/>
       </div>
+      <!-- Added About link in the footer -->
+      <button id="about-btn" class="mt-4 text-zinc-400 hover:text-red-500 transition underline">About</button>
     </div>
   </footer>
 
@@ -300,6 +299,32 @@
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+      // Remove "Don't show this again" logic and auto show for about modal
+      // Only open the modal when About is clicked, not automatically
+
+      // About button triggers dev modal
+      const aboutBtn = document.getElementById('about-btn');
+      const devOverlay = document.getElementById('dev-overlay');
+      const devCloseBtn = document.getElementById('dev-close-btn');
+
+      aboutBtn.addEventListener('click', function() {
+        devOverlay.style.display = 'flex';
+        document.body.classList.add('dev-modal-active');
+      });
+
+      devCloseBtn.addEventListener('click', function() {
+        devOverlay.style.display = 'none';
+        document.body.classList.remove('dev-modal-active');
+      });
+
+      // Hide modal if clicked outside modal box
+      devOverlay.addEventListener('click', function(e) {
+        if (e.target === devOverlay) {
+          devOverlay.style.display = 'none';
+          document.body.classList.remove('dev-modal-active');
+        }
+      });
     });
   </script>
   <script src="src/index.js" defer></script>
@@ -307,7 +332,3 @@
      crossorigin="anonymous"></script>
 </body>
 </html>
-
-
-
-
