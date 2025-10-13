@@ -146,6 +146,89 @@
     .yellow-note a { color: #b91c1c; text-decoration: underline; font-weight: bold; }
     .yellow-note i { color: #d97706; font-size: 1.3em; }
     @media (max-width: 768px) { .yellow-note { font-size: 0.96rem; padding: 0.8rem 1rem; flex-direction: column; align-items: flex-start; } }
+
+    /* Footer specific styles (updated to use red links/text) */
+    footer.site-footer {
+      border-top: 1px solid #1f1f1f;
+      padding: 32px 16px;
+      background: #0f0f10;
+      color: #bfc3c8;
+    }
+    .footer-grid {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 12px;
+      flex-wrap: wrap;
+    }
+    .footer-left {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      max-width: 600px;
+    }
+    .footer-left img {
+      width: 96px;
+      height: 48px;
+      object-fit: cover;
+      border-radius: 6px;
+      background: #e50914;
+      padding: 6px;
+    }
+    .footer-left .desc {
+      font-size: 0.95rem;
+      color: #cbd5dc;
+      line-height: 1.4;
+    }
+    .footer-left .disclaimer {
+      margin-top: 12px;
+      font-size: 0.85rem;
+      color: #8f9499;
+    }
+    .footer-right {
+      display: flex;
+      gap: 48px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+    .footer-col {
+      min-width: 140px;
+    }
+    /* make titles red */
+    .footer-col-title {
+      color: #e50914;
+      font-weight: 700;
+      margin-bottom: 10px;
+      letter-spacing: .6px;
+      font-size: 0.95rem;
+    }
+    /* make footer links red instead of blue */
+    .footer-link {
+      display: block;
+      color: #e50914;
+      text-decoration: none;
+      margin-bottom: 8px;
+      font-size: 0.92rem;
+    }
+    .footer-link:hover {
+      text-decoration: underline;
+      color: #ff6b6b;
+    }
+    .footer-bottom {
+      text-align: center;
+      margin-top: 20px;
+      color: #7b7f84;
+      font-size: 0.9rem;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255,255,255,0.02);
+    }
+    @media (max-width: 720px) {
+      .footer-grid { flex-direction: column; gap: 18px; align-items: flex-start; }
+      .footer-right { width: 100%; justify-content: flex-start; gap: 20px; }
+    }
   </style>
 </head>
 <body class="text-white">
@@ -273,16 +356,36 @@
     </div>
   </div>
 
-  <footer class="text-center py-8 text-zinc-500 text-sm">
-    <div class="container mx-auto px-4 flex flex-col items-center">
-      <p class="mb-2">© <span id="footer-year">2025</span> HarleyFlix. All Rights Reserved.</p>
-      <p>This site does not store any files on its server. All contents are provided by non-affiliated third parties.</p>
-      <div class="footer-socials"></div>
-      <div class="mt-4">
-        <img src="https://placehold.co/80x40/E50914/FFFFFF?text=HarleyFlix" alt="HarleyFlix Logo" style="height:40px; border-radius:8px;"/>
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-left">
+        <img src="https://placehold.co/120x48/E50914/FFFFFF?text=HarleyFlix" alt="HarleyFlix Logo">
+        <div>
+          <div class="desc">
+            HarleyFlix — watch movies & TV shows online in a simple, fast and easy UI. This site does not host content; it indexes third-party sources for streaming.
+          </div>
+          <div class="disclaimer">
+            Disclaimer: This site does not store any files on its server. All contents are provided by non-affiliated third parties.
+          </div>
+        </div>
       </div>
-      <!-- Added About link in the footer -->
-      <button id="about-btn" class="mt-4 text-zinc-400 hover:text-red-500 transition underline">About</button>
+
+      <div class="footer-right">
+        <div class="footer-col">
+          <div class="footer-col-title">HELP</div>
+          <a class="footer-link" href="/faq" target="_blank" rel="noopener noreferrer">FAQ's</a>
+          <a class="footer-link" href="/contact" target="_blank" rel="noopener noreferrer">Contact</a>
+        </div>
+
+        <div class="footer-col">
+          <div class="footer-col-title">LEGAL</div>
+          <a class="footer-link" href="/dmca" target="_blank" rel="noopener noreferrer">DMCA</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      © <span id="footer-year">2025</span> HarleyFlix. All Rights Reserved.
     </div>
   </footer>
 
@@ -335,7 +438,7 @@
   <script type="text/javascript" data-cfasync="false">
 /*<![CDATA[/* */
 (function(){var t=window,f="fa4be94604d54f4ee0d2d9b6caab713a",y=[["siteId",746+459-368*314+5360800],["minBid",0],["popundersPerIP","0"],["delayBetween",0],["default",false],["defaultPerDay",0],["topmostLayer","auto"]],h=["d3d3LmJldHRlcmFkc3lzdGVtLmNvbS9VL3hwbGFuY2subWluLmpz","ZDJrazBvM2ZyN2VkMDEuY2xvdWRmcm9udC5uZXQvbS9vREFaL29vYmplY3RkZXRlY3QubWluLmNzcw==","d3d3LmV5cnhjbXpkc2tscXBjLmNvbS9WSXFuUkwvcnBsYW5jay5taW4uanM=","d3d3LmdycnZudGFkYnlhcHMuY29tL0RhQmYvS2JBRGVFL25vYmplY3RkZXRlY3QubWluLmNzcw=="],u=-1,b,z,q=function(){clearTimeout(z);u++;if(h[u]&&!(1786194819000<(new Date).getTime()&&1<u)){b=t.document.createElement("script");b.type="text/javascript";b.async=!0;var l=t.document.getElementsByTagName("script")[0];b.src="https://"+atob(h[u]);b.crossOrigin="anonymous";b.onerror=q;b.onload=function(){clearTimeout(z);t[f.slice(0,16)+f.slice(0,16)]||q()};z=setTimeout(q,5E3);l.parentNode.insertBefore(b,l)}};if(!t[f]){try{Object.freeze(t[f]=y)}catch(e){}q()}})();
-/*]]>/* */
+ /*]]>/* */
 </script>
 
   <script src="src/index.js" defer></script>
@@ -343,6 +446,3 @@
      crossorigin="anonymous"></script>
 </body>
 </html>
-
-
-
