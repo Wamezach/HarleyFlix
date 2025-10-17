@@ -6,14 +6,36 @@
   <title>Contact Us - HarleyFlix</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body { background:#141414; color:#e5e7eb; font-family: Inter, system-ui, sans-serif; }
-    .container { max-width:800px; margin:2.5rem auto; padding:1rem; }
-    .home { display:inline-block; margin-bottom:1rem; color:#fff; background:#e50914; padding:8px 12px; border-radius:6px; text-decoration:none; }
-    .card { background:#181818; padding:1.5rem; border-radius:8px; border:1px solid #2a2a2a; }
-    label { color:#9ca3af; display:block; margin-top:0.75rem; margin-bottom:0.25rem; }
-    input, textarea { width:100%; padding:8px; border-radius:6px; border:1px solid #2a2a2a; background:#0f0f0f; color:#e5e7eb; }
-    button.submit { margin-top:1rem; background:#e50914; color:#fff; padding:8px 12px; border-radius:6px; border:none; cursor:pointer; }
-    footer { margin-top:2rem; text-align:center; color:#9ca3af; }
+    :root{
+      --bg:#141414;
+      --card:#181818;
+      --text:#d1d5db;
+      --accent:#e50914;
+      --muted:#9ca3af;
+      --border:rgba(255,255,255,0.03);
+    }
+    html,body{height:100%}
+    body {
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+    }
+    .container{max-width:800px;margin:40px auto;padding:0 16px;}
+    .home{display:inline-block;margin-bottom:16px;color:#fff;background:var(--accent);padding:8px 12px;border-radius:6px;text-decoration:none;font-weight:700;}
+    .card{background:var(--card);padding:20px;border-radius:8px;border:1px solid #222;}
+    label{display:block;color:var(--muted);margin-top:10px;margin-bottom:6px;}
+    input,textarea{width:100%;padding:10px;border-radius:6px;border:1px solid #222;background:#0f0f0f;color:var(--text)}
+    .submit{margin-top:12px;background:var(--accent);color:#fff;padding:10px 14px;border-radius:6px;border:none;cursor:pointer;font-weight:700;}
+    /* Footer (shared) - minimal override to ensure consistent appearance on this page */
+    .site-footer { background:#0b0b0b;border-top:1px solid var(--border);color:var(--muted);margin-top:24px;}
+    .footer-inner{max-width:1200px;margin:0 auto;padding:36px 20px;display:flex;gap:28px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;}
+    .footer-logo-pill{background:var(--accent);color:#fff;padding:10px 14px;border-radius:8px;font-weight:700;min-width:88px;height:40px;display:flex;align-items:center;justify-content:center;}
+    .footer-desc{color:var(--text);line-height:1.45;font-size:0.95rem;}
+    .footer-col-title{color:var(--accent)!important;font-weight:800;margin-bottom:8px;}
+    .footer-link{color:var(--accent)!important;text-decoration:none;display:block;margin-bottom:8px;font-weight:600;}
+    .footer-link:hover{color:#ff3b3b!important;text-decoration:underline;transform:translateX(3px);}
+    .footer-bottom{border-top:1px solid var(--border);padding:14px 20px;text-align:center;color:#7f8488;font-size:0.9rem;}
   </style>
 </head>
 <body>
@@ -21,10 +43,10 @@
     <a class="home" href="index.html">← Home</a>
 
     <div class="card">
-      <h1 class="text-2xl font-bold mb-2">Contact Us</h1>
-      <p class="text-zinc-300 mb-4">If you need to reach the site admin, use the contact form below or join our community link.</p>
+      <h1 style="margin:0 0 8px 0;color:#fff;font-size:1.25rem;">Contact Us</h1>
+      <p style="color:var(--text);margin-bottom:12px;">If you need to reach the site admin, use the contact form below or join our community link.</p>
 
-      <form action="#" method="post" onsubmit="alert('This is a static demo form. Implement backend to receive messages.'); return false;">
+      <form onsubmit="alert('This is a static demo form. Implement backend to receive messages.'); return false;">
         <label for="name">Name</label>
         <input id="name" name="name" type="text" placeholder="Your name" required>
 
@@ -37,16 +59,46 @@
         <button class="submit" type="submit">Send Message</button>
       </form>
     </div>
-
-    <footer>
-      <p class="mt-4">Prefer chat? <a href="https://t.me/harleyflix" target="_blank" rel="noopener" class="text-red-400">Telegram</a></p>
-   <div class="footer-bottom">
-    © <span id="footer-year"></span> HarleyFlix. All Rights Reserved.
-  </div>
-    </footer>
   </div>
 
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <!-- Shared footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <div style="display:flex;gap:16px;align-items:flex-start;flex:1 1 480px;min-width:220px;">
+        <div class="footer-logo-pill">HarleyFlix</div>
+        <div>
+          <div class="footer-desc">
+            HarleyFlix — watch movies & TV shows online in a simple, fast and easy UI. This site does not host content; it indexes third‑party sources for streaming.
+          </div>
+          <div style="color:var(--muted);font-size:0.85rem;margin-top:10px;">
+            Disclaimer: This site does not store any files on its server. All contents are provided by non‑affiliated third parties.
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:36px;flex:0 1 380px;justify-content:flex-end;flex-wrap:wrap;">
+        <div style="min-width:120px;text-align:right;">
+          <div class="footer-col-title">HELP</div>
+          <nav>
+            <a class="footer-link" href="help.html">Help</a>
+            <a class="footer-link" href="contact.html">Contact Us</a>
+            <a class="footer-link" href="about.html">About</a>
+          </nav>
+        </div>
+
+        <div style="min-width:120px;text-align:right;">
+          <div class="footer-col-title">LEGAL</div>
+          <nav>
+            <a class="footer-link" href="privacy.html">Privacy Policy</a>
+            <a class="footer-link" href="rules.html">Rules</a>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">© <span id="footer-year"></span> HarleyFlix. All Rights Reserved.</div>
+  </footer>
+
+  <script> (function(){ const el = document.getElementById('footer-year'); if(el) el.textContent = new Date().getFullYear(); })(); </script>
 </body>
-
 </html>

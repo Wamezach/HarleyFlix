@@ -6,11 +6,21 @@
   <title>Privacy Policy - HarleyFlix</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body { background:#141414; color:#e5e7eb; font-family: Inter, system-ui, sans-serif; }
-    .container { max-width:900px; margin:2.5rem auto; padding:1rem; }
-    a.home { display:inline-block; margin-bottom:1rem; color:#fff; background:#e50914; padding:8px 12px; border-radius:6px; text-decoration:none; }
-    .card { background:#181818; padding:1.5rem; border-radius:8px; border:1px solid #2a2a2a; color:#d1d5db; }
-    footer { margin-top:2rem; text-align:center; color:#9ca3af; }
+    :root{
+      --bg:#141414;
+      --card:#181818;
+      --text:#d1d5db;
+      --accent:#e50914;
+      --muted:#9ca3af;
+      --border:rgba(255,255,255,0.03);
+    }
+    html,body{height:100%}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;}
+    .container{max-width:900px;margin:40px auto;padding:0 16px;}
+    .home{display:inline-block;margin-bottom:16px;color:#fff;background:var(--accent);padding:8px 12px;border-radius:6px;text-decoration:none;font-weight:700;}
+    .card{background:var(--card);padding:20px;border-radius:8px;border:1px solid #222;color:var(--text);}
+    .footer-link{color:var(--accent)!important;text-decoration:none;display:block;margin-bottom:8px;font-weight:600;}
+    .footer-bottom{border-top:1px solid var(--border);padding:14px 20px;text-align:center;color:#7f8488;font-size:0.9rem;margin-top:24px;}
   </style>
 </head>
 <body>
@@ -18,32 +28,63 @@
     <a class="home" href="index.html">← Home</a>
 
     <div class="card">
-      <h1 class="text-2xl font-bold mb-2">Privacy Policy</h1>
-      <p class="mb-4">Last updated: <strong><span id="today"></span></strong></p>
+      <h1 style="margin:0 0 8px 0;color:#fff;">Privacy Policy</h1>
+      <p style="margin:0 0 12px 0;">Last updated: <strong><span id="today"></span></strong></p>
 
       <p>This site does not host content. We do not knowingly collect personal information except where you provide it (for example via the contact form). External services (analytics, ad networks, Telegram, etc.) may collect data according to their own policies.</p>
 
-      <h2 class="mt-4 text-lg font-semibold text-white">Summary</h2>
-      <ul class="mt-2" style="color:#d1d5db;">
+      <h2 style="color:#fff;margin-top:12px;">Summary</h2>
+      <ul style="color:var(--text);margin-top:8px;">
         <li>We do not store media files on our servers.</li>
         <li>Contact form submissions are only as persistent as your backend (not implemented in this demo).</li>
         <li>Third-party services may collect data; review their privacy policies.</li>
       </ul>
 
-      <p class="mt-4">If you have privacy concerns, please <a href="contact.html" class="text-red-400">contact us</a>.</p>
+      <p style="margin-top:12px;">If you have privacy concerns, please <a href="contact.html" style="color:var(--accent);text-decoration:underline;">contact us</a>.</p>
+    </div>
+  </div>
+
+  <!-- Shared footer -->
+  <footer class="site-footer" role="contentinfo" style="background:#0b0b0b;border-top:1px solid var(--border);color:var(--muted);">
+    <div style="max-width:1200px;margin:0 auto;padding:36px 20px;display:flex;gap:28px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;">
+      <div style="display:flex;gap:16px;align-items:flex-start;flex:1 1 480px;min-width:220px;">
+        <div style="background:var(--accent);color:#fff;padding:10px 14px;border-radius:8px;font-weight:700;min-width:88px;height:40px;display:flex;align-items:center;justify-content:center;">HarleyFlix</div>
+        <div>
+          <div style="color:var(--text);line-height:1.45;font-size:0.95rem;">
+            HarleyFlix — watch movies & TV shows online in a simple, fast and easy UI. This site does not host content; it indexes third‑party sources for streaming.
+          </div>
+          <div style="color:var(--muted);font-size:0.85rem;margin-top:10px;">
+            Disclaimer: This site does not store any files on its server. All contents are provided by non‑affiliated third parties.
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:36px;flex:0 1 380px;justify-content:flex-end;flex-wrap:wrap;">
+        <div style="min-width:120px;text-align:right;">
+          <div style="color:var(--accent);font-weight:800;margin-bottom:8px;">HELP</div>
+          <nav>
+            <a class="footer-link" href="help.html">Help</a>
+            <a class="footer-link" href="contact.html">Contact Us</a>
+            <a class="footer-link" href="about.html">About</a>
+          </nav>
+        </div>
+
+        <div style="min-width:120px;text-align:right;">
+          <div style="color:var(--accent);font-weight:800;margin-bottom:8px;">LEGAL</div>
+          <nav>
+            <a class="footer-link" href="privacy.html">Privacy Policy</a>
+            <a class="footer-link" href="rules.html">Rules</a>
+          </nav>
+        </div>
+      </div>
     </div>
 
-    <footer>
-<div class="footer-bottom">
-    © <span id="footer-year"></span> HarleyFlix. All Rights Reserved.
-  </div>
-    </footer>
-  </div>
+    <div class="footer-bottom">© <span id="footer-year"></span> HarleyFlix. All Rights Reserved.</div>
+  </footer>
 
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
     document.getElementById('today').textContent = new Date().toLocaleDateString();
+    (function(){ const el = document.getElementById('footer-year'); if(el) el.textContent = new Date().getFullYear(); })();
   </script>
 </body>
-
 </html>

@@ -6,13 +6,30 @@
   <title>Help - HarleyFlix</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body { background:#141414; color:#e5e7eb; font-family: Inter, system-ui, sans-serif; }
-    .container { max-width:900px; margin:2.5rem auto; padding:1rem; }
-    a.home { display:inline-block; margin-bottom:1rem; color:#fff; background:#e50914; padding:8px 12px; border-radius:6px; text-decoration:none; }
-    .card { background:#181818; padding:1.5rem; border-radius:8px; border:1px solid #2a2a2a; color:#d1d5db; }
-    .faq dt { font-weight:600; margin-top:1rem; color:#fff; }
-    .faq dd { margin-left:0; margin-bottom:0.75rem; color:#d1d5db; }
-    footer { margin-top:2rem; text-align:center; color:#9ca3af; }
+    :root{
+      --bg:#141414;
+      --card:#181818;
+      --text:#d1d5db;
+      --accent:#e50914;
+      --muted:#9ca3af;
+      --border:rgba(255,255,255,0.03);
+    }
+    html,body{height:100%}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;}
+    .container{max-width:900px;margin:40px auto;padding:0 16px;}
+    .home{display:inline-block;margin-bottom:16px;color:#fff;background:var(--accent);padding:8px 12px;border-radius:6px;text-decoration:none;font-weight:700;}
+    .card{background:var(--card);padding:20px;border-radius:8px;border:1px solid #222;color:var(--text);}
+    .faq dt{font-weight:700;margin-top:12px;color:#fff;}
+    .faq dd{margin-left:0;margin-bottom:10px;color:var(--text);}
+    /* Footer simplified (shared) */
+    .site-footer { background:#0b0b0b;border-top:1px solid var(--border);color:var(--muted);margin-top:24px;}
+    .footer-inner{max-width:1200px;margin:0 auto;padding:36px 20px;display:flex;gap:28px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;}
+    .footer-logo-pill{background:var(--accent);color:#fff;padding:10px 14px;border-radius:8px;font-weight:700;min-width:88px;height:40px;display:flex;align-items:center;justify-content:center;}
+    .footer-desc{color:var(--text);line-height:1.45;font-size:0.95rem;}
+    .footer-col-title{color:var(--accent)!important;font-weight:800;margin-bottom:8px;}
+    .footer-link{color:var(--accent)!important;text-decoration:none;display:block;margin-bottom:8px;font-weight:600;}
+    .footer-link:hover{color:#ff3b3b!important;text-decoration:underline;transform:translateX(3px);}
+    .footer-bottom{border-top:1px solid var(--border);padding:14px 20px;text-align:center;color:#7f8488;font-size:0.9rem;}
   </style>
 </head>
 <body>
@@ -20,7 +37,7 @@
     <a class="home" href="index.html">← Home</a>
 
     <div class="card">
-      <h1 class="text-2xl font-bold mb-2">Help & FAQs</h1>
+      <h1 style="margin:0 0 8px 0;color:#fff;">Help & FAQs</h1>
 
       <dl class="faq">
         <dt>Why is the video blurry?</dt>
@@ -30,22 +47,52 @@
         <dd>Check the player's mute/volume, and your device volume. Try another server if available.</dd>
 
         <dt>How do I report incorrect info or broken links?</dt>
-        <dd>Use the <a href="contact.html" class="text-red-400">Contact</a> page to report issues.</dd>
+        <dd>Use the <a href="contact.html" style="color:var(--accent);text-decoration:underline;">Contact</a> page to report issues.</dd>
 
         <dt>Does HarleyFlix host media files?</dt>
         <dd>No. All content is served by third-party providers.</dd>
       </dl>
     </div>
-
-    <footer>
-      <p class="mt-4"><a href="contact.html">Contact</a> • <a href="privacy.html">Privacy</a></p>
- <div class="footer-bottom">
-    © <span id="footer-year"></span> HarleyFlix. All Rights Reserved.
-  </div>
-    </footer>
   </div>
 
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <!-- Shared footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <div style="display:flex;gap:16px;align-items:flex-start;flex:1 1 480px;min-width:220px;">
+        <div class="footer-logo-pill">HarleyFlix</div>
+        <div>
+          <div class="footer-desc">
+            HarleyFlix — watch movies & TV shows online in a simple, fast and easy UI. This site does not host content; it indexes third‑party sources for streaming.
+          </div>
+          <div style="color:var(--muted);font-size:0.85rem;margin-top:10px;">
+            Disclaimer: This site does not store any files on its server. All contents are provided by non‑affiliated third parties.
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:36px;flex:0 1 380px;justify-content:flex-end;flex-wrap:wrap;">
+        <div style="min-width:120px;text-align:right;">
+          <div class="footer-col-title">HELP</div>
+          <nav>
+            <a class="footer-link" href="help.html">Help</a>
+            <a class="footer-link" href="contact.html">Contact Us</a>
+            <a class="footer-link" href="about.html">About</a>
+          </nav>
+        </div>
+
+        <div style="min-width:120px;text-align:right;">
+          <div class="footer-col-title">LEGAL</div>
+          <nav>
+            <a class="footer-link" href="privacy.html">Privacy Policy</a>
+            <a class="footer-link" href="rules.html">Rules</a>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">© <span id="footer-year"></span> HarleyFlix. All Rights Reserved.</div>
+  </footer>
+
+  <script> (function(){ const el = document.getElementById('footer-year'); if(el) el.textContent = new Date().getFullYear(); })(); </script>
 </body>
-
 </html>
