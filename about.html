@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>About - HarleyFlix</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body { background: #141414; color: #e5e7eb; font-family: Inter, system-ui, sans-serif; }
+    .container { max-width: 900px; margin: 2.5rem auto; padding: 1rem; }
+    a.home { display:inline-block; margin-bottom:1rem; color:#fff; background:#e50914; padding:8px 12px; border-radius:6px; text-decoration:none; }
+    .card { background:#181818; padding:1.5rem; border-radius:8px; border:1px solid #2a2a2a; }
+    footer { margin-top:2rem; text-align:center; color:#9ca3af; font-size:0.9rem; }
+    nav.footer-links a { margin: 0 8px; color:#9ca3af; text-decoration:underline; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="home" href="index.html" aria-label="Go back home">← Home</a>
+
+    <div class="card">
+      <h1 class="text-2xl font-bold text-white mb-2">About HarleyFlix</h1>
+      <p class="text-zinc-300 mb-4">
+        HarleyFlix is a lightweight streaming front-end providing a catalog of movies and TV shows aggregated from third-party providers.
+        This site does not host any content — all media is provided by non-affiliated third parties.
+      </p>
+
+      <h2 class="text-lg font-semibold text-white mt-4">Made by</h2>
+      <p class="text-zinc-300 mb-4">PHC_HARLEY QUINN (developer)</p>
+
+      <h2 class="text-lg font-semibold text-white mt-4">Contact & Community</h2>
+      <p class="text-zinc-300">Join our Telegram: <a href="https://t.me/harleyflix" target="_blank" rel="noopener" class="text-red-400">t.me/harleyflix</a></p>
+
+      <h2 class="text-lg font-semibold text-white mt-4">Notes</h2>
+      <ul class="text-zinc-300 list-disc list-inside">
+        <li>This project is provided "as-is". Use at your own risk.</li>
+        <li>All rights and content belong to their respective owners.</li>
+      </ul>
+    </div>
+
+    <footer>
+      <nav class="footer-links">
+        <a href="contact.html">Contact Us</a> |
+        <a href="rules.html">Rules</a> |
+        <a href="privacy.html">Privacy Policy</a> |
+        <a href="help.html">Help</a>
+      </nav>
+      <p class="mt-2">© <span id="year">2025</span> HarleyFlix</p>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

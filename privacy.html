@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Privacy Policy - HarleyFlix</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { background:#141414; color:#e5e7eb; font-family: Inter, system-ui, sans-serif; }
+    .container { max-width:900px; margin:2.5rem auto; padding:1rem; }
+    a.home { display:inline-block; margin-bottom:1rem; color:#fff; background:#e50914; padding:8px 12px; border-radius:6px; text-decoration:none; }
+    .card { background:#181818; padding:1.5rem; border-radius:8px; border:1px solid #2a2a2a; color:#d1d5db; }
+    footer { margin-top:2rem; text-align:center; color:#9ca3af; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="home" href="index.html">← Home</a>
+
+    <div class="card">
+      <h1 class="text-2xl font-bold mb-2">Privacy Policy</h1>
+      <p class="mb-4">Last updated: <strong><span id="today"></span></strong></p>
+
+      <p>This site does not host content. We do not knowingly collect personal information except where you provide it (for example via the contact form). External services (analytics, ad networks, Telegram, etc.) may collect data according to their own policies.</p>
+
+      <h2 class="mt-4 text-lg font-semibold text-white">Summary</h2>
+      <ul class="mt-2" style="color:#d1d5db;">
+        <li>We do not store media files on our servers.</li>
+        <li>Contact form submissions are only as persistent as your backend (not implemented in this demo).</li>
+        <li>Third-party services may collect data; review their privacy policies.</li>
+      </ul>
+
+      <p class="mt-4">If you have privacy concerns, please <a href="contact.html" class="text-red-400">contact us</a>.</p>
+    </div>
+
+    <footer>
+      <p class="mt-4">© <span id="year">2025</span> HarleyFlix</p>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('today').textContent = new Date().toLocaleDateString();
+  </script>
+</body>
+</html>

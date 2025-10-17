@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Help - HarleyFlix</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { background:#141414; color:#e5e7eb; font-family: Inter, system-ui, sans-serif; }
+    .container { max-width:900px; margin:2.5rem auto; padding:1rem; }
+    a.home { display:inline-block; margin-bottom:1rem; color:#fff; background:#e50914; padding:8px 12px; border-radius:6px; text-decoration:none; }
+    .card { background:#181818; padding:1.5rem; border-radius:8px; border:1px solid #2a2a2a; color:#d1d5db; }
+    .faq dt { font-weight:600; margin-top:1rem; color:#fff; }
+    .faq dd { margin-left:0; margin-bottom:0.75rem; color:#d1d5db; }
+    footer { margin-top:2rem; text-align:center; color:#9ca3af; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="home" href="index.html">← Home</a>
+
+    <div class="card">
+      <h1 class="text-2xl font-bold mb-2">Help & FAQs</h1>
+
+      <dl class="faq">
+        <dt>Why is the video blurry?</dt>
+        <dd>Try switching servers from the player options. Some sources offer multiple quality levels.</dd>
+
+        <dt>I see no sound on some videos — what to do?</dt>
+        <dd>Check the player's mute/volume, and your device volume. Try another server if available.</dd>
+
+        <dt>How do I report incorrect info or broken links?</dt>
+        <dd>Use the <a href="contact.html" class="text-red-400">Contact</a> page to report issues.</dd>
+
+        <dt>Does HarleyFlix host media files?</dt>
+        <dd>No. All content is served by third-party providers.</dd>
+      </dl>
+    </div>
+
+    <footer>
+      <p class="mt-4"><a href="contact.html">Contact</a> • <a href="privacy.html">Privacy</a></p>
+      <p class="mt-2">© <span id="year">2025</span> HarleyFlix</p>
+    </footer>
+  </div>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

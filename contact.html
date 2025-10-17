@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contact Us - HarleyFlix</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { background:#141414; color:#e5e7eb; font-family: Inter, system-ui, sans-serif; }
+    .container { max-width:800px; margin:2.5rem auto; padding:1rem; }
+    .home { display:inline-block; margin-bottom:1rem; color:#fff; background:#e50914; padding:8px 12px; border-radius:6px; text-decoration:none; }
+    .card { background:#181818; padding:1.5rem; border-radius:8px; border:1px solid #2a2a2a; }
+    label { color:#9ca3af; display:block; margin-top:0.75rem; margin-bottom:0.25rem; }
+    input, textarea { width:100%; padding:8px; border-radius:6px; border:1px solid #2a2a2a; background:#0f0f0f; color:#e5e7eb; }
+    button.submit { margin-top:1rem; background:#e50914; color:#fff; padding:8px 12px; border-radius:6px; border:none; cursor:pointer; }
+    footer { margin-top:2rem; text-align:center; color:#9ca3af; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="home" href="index.html">← Home</a>
+
+    <div class="card">
+      <h1 class="text-2xl font-bold mb-2">Contact Us</h1>
+      <p class="text-zinc-300 mb-4">If you need to reach the site admin, use the contact form below or join our community link.</p>
+
+      <form action="#" method="post" onsubmit="alert('This is a static demo form. Implement backend to receive messages.'); return false;">
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" placeholder="Your name" required>
+
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="you@example.com" required>
+
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="6" placeholder="Your message..." required></textarea>
+
+        <button class="submit" type="submit">Send Message</button>
+      </form>
+    </div>
+
+    <footer>
+      <p class="mt-4">Prefer chat? <a href="https://t.me/harleyflix" target="_blank" rel="noopener" class="text-red-400">Telegram</a></p>
+      <p class="mt-2">© <span id="year">2025</span> HarleyFlix</p>
+    </footer>
+  </div>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
